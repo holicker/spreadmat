@@ -3,8 +3,7 @@ server.error.include-message: always
 
 spring.application.name: vendor
 
-spring.jpa.hibernate.ddl-auto: u
-  pdate
+spring.jpa.hibernate.ddl-auto: update
 
 spring:
   datasource:
