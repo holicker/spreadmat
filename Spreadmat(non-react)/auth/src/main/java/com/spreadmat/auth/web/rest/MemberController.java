@@ -1,9 +1,9 @@
 package com.spreadmat.auth.web.rest;
 
-import com.spreadmat.auth.domain.Member;
+import com.spreadmat.auth.domain.User;
 import com.spreadmat.auth.service.MemberService;
-import com.spreadmat.auth.web.rest.dto.MemberDTO;
-import com.spreadmat.auth.web.rest.mapper.MemberMapper;
+import com.spreadmat.auth.web.rest.dto.UserDTO;
+import com.spreadmat.auth.web.rest.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
     @Autowired private MemberService memberService;
-    @Autowired private MemberMapper memberMapper;
+    @Autowired private UserMapper userMapper;
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @PostMapping("/register")
-    public ResponseEntity<MemberDTO> registerMember(@RequestBody MemberDTO memberDTO){
-        Member member = memberMapper.toEntity(memberDTO.passwordEncrypt(passwordEncoder));
-        Member registerdMember = memberService.createMember(member);
-        MemberDTO responseDTO = memberMapper.toDto(registerdMember);
+    public ResponseEntity<UserDTO> registerMember(@RequestBody UserDTO userDTO){
+        log.info("Member DTO : {}", userDTO);
+        User user = userMapper.toEntity(userDTO.passwordEncrypt(passwordEncoder));
+        User registerdUser = memberService.createUser(user);
+        UserDTO responseDTO = userMapper.toDto(registerdUser);
+        log.info("Response DTO : {}", responseDTO);
         return ResponseEntity.ok(responseDTO);
     }
 }

@@ -10,16 +10,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDTO {
+public class UserDTO {
 
-    private String token;
-    private String email;
-    private String memberName;
+    private String username;
     private String password;
     private String id;
 
-    public MemberDTO passwordEncrypt(PasswordEncoder passwordEncoder){
-        this.password = passwordEncoder.encode(this.password);
+    public UserDTO passwordEncrypt(PasswordEncoder passwordEncoder){
+        this.password = "{bcrypt}" + passwordEncoder.encode(this.password);
         return this;
     }
 }

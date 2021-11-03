@@ -1,6 +1,6 @@
 FROM openjdk:8u302-jdk
 
-EXPOSE 9999
+EXPOSE 8080
 
 ADD ./build/libs/*.jar app.jar
 

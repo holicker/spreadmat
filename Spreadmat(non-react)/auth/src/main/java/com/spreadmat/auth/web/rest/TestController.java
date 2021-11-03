@@ -12,7 +12,10 @@ public class TestController {
 
     @GetMapping("/test")
     public ResponseEntity<String> idTest(@AuthenticationPrincipal String userId){
-        return ResponseEntity.ok(userId);
+        log.info("userId : {}", userId);
+        if (userId != "anonymousUser") return ResponseEntity.ok(userId);
+
+        return ResponseEntity.badRequest().build();
 
     }
 }

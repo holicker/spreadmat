@@ -35,10 +35,20 @@ spring.cloud.gateway.routes:
   predicates:
   - Path=/vendor/**
 
+- id: qna
+  uri: lb://qna
+  predicates:
+    - Path=/qna/**
+
 - id: auth
   uri: lb://auth
   predicates:
   - Path=/oauth/**
+
+- id: chat
+  uri: lb://chat
+  predicates:
+    - Path=/chat/**
 
 - id: eureka-api
   uri: http://${app.eureka-server}:8761

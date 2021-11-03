@@ -1,55 +1,47 @@
 package com.spreadmat.auth.service.impl;
 
-import com.spreadmat.auth.domain.Member;
-import com.spreadmat.auth.repository.MemberRepository;
+import com.spreadmat.auth.domain.User;
+import com.spreadmat.auth.repository.UserRepository;
 import com.spreadmat.auth.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Slf4j
 public class MemberServiceImpl implements MemberService {
 
-    @Autowired private MemberRepository memberRepository;
+    @Autowired private UserRepository userRepository;
 
     @Override
-    public Member save(Member member) {
-        return memberRepository.save(member);
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
     @Override
-    public Page<Member> findAll(Pageable pageable) {
-        return memberRepository.findAll(pageable);
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     @Override
-    public Optional<Member> findOneById(String id) {
-        return memberRepository.findById(id);
+    public User findOneByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override
-    public Optional<Member> findOneByEmail(String email) {
-        return memberRepository.findByEmail(email);
-    }
-
-    @Override
-    public void delete(String id) {
-        memberRepository.deleteById(id);
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 
     // 최초 멤버 생성
     @Override
-    public Member createMember(Member member) {
-        if(member == null || member.getEmail() == null) throw new RuntimeException("Invalid Arguments! 멤버가 비어있습니다.");
-        final String email = member.getEmail();
-        if(memberRepository.existsByEmail(email)) throw new RuntimeException("Email already exist! 이메일이 이미 존재합니다!");
-        return memberRepository.save(member);
+    public User createUser(User user) {
+        if(user == null || user.getUsername() == null) throw new RuntimeException("Invalid Arguments! 멤버가 비어있습니다.");
+        final String userName = user.getUsername();
+        if(userRepository.existsByUsername(userName)) throw new RuntimeException("Email already exist! 이메일이 이미 존재합니다!");
+        return userRepository.save(user);
     }
 
 }

@@ -1,24 +1,19 @@
 package com.spreadmat.auth.service;
 
-import com.spreadmat.auth.domain.Member;
+import com.spreadmat.auth.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Optional;
 
 public interface MemberService {
 
-    Member save(Member member);
+    User save(User user);
 
-    Page<Member> findAll(Pageable pageable);
+    Page<User> findAll(Pageable pageable);
 
-    Optional<Member> findOneById(String id);
+    User findOneByUsername(String username);
 
-    Optional<Member> findOneByEmail(String email);
+    void delete(Long Id);
 
-    void delete(String Id);
-
-    Member createMember(final Member member);
+    User createUser(final User user);
 
 }
