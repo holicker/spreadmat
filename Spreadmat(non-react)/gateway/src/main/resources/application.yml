@@ -66,6 +66,16 @@ spring.cloud.gateway.routes:
   predicates:
     - Path=/chatroom/**
 
+- id: chatroom-sockjs-route
+  uri: http://chat:8080
+  predicates:
+    - Path=/chatting/info/**
+
+- id: chat-websocket
+  uri: lb:ws://chat:8080
+  predicates:
+    - Path=/chatting/**
+
 - id: eureka-api
   uri: http://${app.eureka-server}:8761
   predicates:
@@ -88,24 +98,6 @@ spring.cloud.gateway.routes:
   filters:
     - SetPath=/200
 
-spring.cloud.gateway.globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "http://localhost:80"
-            allow-credentials: true
-            allowedHeaders:
-              - x-requested-with
-              - authorization
-              - content-type
-              - credential
-              - X-AUTH-TOKEN
-              - X-CSRF-TOKEN
-            allowedMethods:
-              - POST
-              - GET
-              - PUT
-              - OPTIONS
-              - DELETE
 
 spring.security.oauth2.resourceserver.jwt.jwk-set-uri: http://${app.auth-server}:9999/.well-known/jwks.json
 

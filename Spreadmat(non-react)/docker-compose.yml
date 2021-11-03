@@ -61,6 +61,11 @@ services:
       - MYSQL_DATABASE=spreadmat
       - MYSQL_USER=user
       - MYSQL_PASSWORD=pwd
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - D:/projects/mysql/datadir:/var/lib/mysql
     healthcheck:
       test: "/usr/bin/mysql --user=user --password=pwd --execute \"SHOW DATABASES;\""
       interval: 10s
