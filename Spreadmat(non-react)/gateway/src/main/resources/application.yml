@@ -32,7 +32,7 @@ spring.cloud.gateway.routes:
 
 - id: vendor
   uri: lb://vendor
-  predicates:
+  predicates: #이게 붙으면 앞에 있는 호스트를 위에로 연결시켜주겠다 이 말이여
   - Path=/vendor/**
 
 - id: qna
@@ -45,10 +45,26 @@ spring.cloud.gateway.routes:
   predicates:
   - Path=/oauth/**
 
-- id: chat
+
+- id: member
+  uri: lb://auth
+  predicates:
+    - Path=/member/**
+
+- id: chat-message
   uri: lb://chat
   predicates:
-    - Path=/chat/**
+    - Path=/message/**
+
+- id: chat-history
+  uri: lb://chat
+  predicates:
+    - Path=/history/**
+
+- id: chatroom
+  uri: lb://chat
+  predicates:
+    - Path=/chatroom/**
 
 - id: eureka-api
   uri: http://${app.eureka-server}:8761

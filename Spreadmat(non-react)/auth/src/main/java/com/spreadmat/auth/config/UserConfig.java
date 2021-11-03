@@ -35,6 +35,7 @@ class UserConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/member/**").permitAll()
+                .antMatchers("/oauth/member/**").permitAll()
                 .antMatchers("/test/**").permitAll()
                 .mvcMatchers("/.well-known/jwks.json").permitAll()
                 .anyRequest().authenticated()
@@ -43,7 +44,8 @@ class UserConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .ignoringRequestMatchers(request -> "/introspect".equals(request.getRequestURI()))
-                .ignoringRequestMatchers(request -> "/member/register".equals(request.getRequestURI()));
+                .ignoringRequestMatchers(request -> "/member/register".equals(request.getRequestURI()))
+                .ignoringRequestMatchers(request -> "/oauth/member/register".equals(request.getRequestURI()));
     }
 
 }
