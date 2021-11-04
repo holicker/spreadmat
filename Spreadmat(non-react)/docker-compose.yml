@@ -30,6 +30,24 @@ services:
       mysql:
         condition: service_healthy
 
+  review:
+    build: review
+    mem_limit: 350m
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  notice:
+    build: notice
+    mem_limit: 350m
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      mysql:
+        condition: service_healthy
+
   eureka:
     build: eureka
     mem_limit: 350m

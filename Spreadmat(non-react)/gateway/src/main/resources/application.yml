@@ -40,6 +40,16 @@ spring.cloud.gateway.routes:
   predicates:
     - Path=/qna/**
 
+- id: review
+  uri: lb://review
+  predicates:
+    - Path=/review/**
+
+- id: notice
+  uri: lb://notice
+  predicates:
+    - Path=/notice/**
+
 - id: auth
   uri: lb://auth
   predicates:
@@ -97,7 +107,6 @@ spring.cloud.gateway.routes:
     - Path=/headerrouting/**
   filters:
     - SetPath=/200
-
 
 spring.security.oauth2.resourceserver.jwt.jwk-set-uri: http://${app.auth-server}:9999/.well-known/jwks.json
 
