@@ -20,4 +20,8 @@ public class UserDTO {
         this.password = "{bcrypt}" + passwordEncoder.encode(this.password);
         return this;
     }
+    public UserDTO passwordSecret(){
+        this.password = "";
+        return this;
+    }
 }
