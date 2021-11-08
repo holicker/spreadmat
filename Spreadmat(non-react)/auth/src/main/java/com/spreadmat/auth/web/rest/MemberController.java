@@ -47,4 +47,12 @@ public class MemberController {
 
     }
 
+    @GetMapping("/{userid}")
+    @ResponseBody
+    public ResponseEntity<String> idToNickname(@PathVariable("userid") Long userid){
+        User resultUser = memberService.findById(userid).get();
+        return new ResponseEntity<String>(resultUser.getNickname(),HttpStatus.OK);
+
+    }
+
 }
