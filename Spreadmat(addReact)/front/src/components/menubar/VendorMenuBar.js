@@ -19,9 +19,7 @@ const MenuButton = styled(BasicItem)`
   }
 `;
 
-const VendorMenuBar = ({ vendorid, match }) => {
-  console.log({ vendorid });
-  console.log({ match });
+const VendorMenuBar = ({ match }) => {
   return (
     <VendorMenuBarBlock>
       <MenuButton>

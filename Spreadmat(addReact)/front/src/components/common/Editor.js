@@ -21,7 +21,7 @@ const QuillWrapper = styled.div`
   }
 `;
 
-const Editor = ({ form, body, onChangeField }) => {
+const Editor = ({ body, onChangeField }) => {
   const quillElement = useRef(null);
   const quillInstance = useRef(null);
 
@@ -47,7 +47,7 @@ const Editor = ({ form, body, onChangeField }) => {
 
     quill.on("text-change", (delta, oldDelta, source) => {
       if (source === "user") {
-        onChangeField({ form: form, key: "body", value: quill.root.innerHTML });
+        onChangeField({ key: "body", value: quill.root.innerHTML });
       }
     });
   }, [onChangeField]);

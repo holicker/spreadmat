@@ -31,12 +31,26 @@ const ViewNoticeItem = styled(BasicItem)`
   }
 `;
 
-const ViewNotice = () => {
+const ViewNotice = ({ notice, error, loading, actionButtons }) => {
+  if (error) {
+    if (error.response && error.response.status === 404) {
+      return <ViewNoticeBlock>존재하지 않는 포스트입니다.</ViewNoticeBlock>;
+    }
+    return <ViewNoticeBlock>오류 발생!</ViewNoticeBlock>;
+  }
+
+  if (loading || !notice) {
+    return null;
+  }
+
+  const { title, body, writer, registeredDate } = notice;
   return (
     <ViewNoticeBlock>
-      <ViewNoticeItem className="noticeTitle">공지</ViewNoticeItem>
-      <ViewNoticeItem className="noticeInfo">날짜 등등</ViewNoticeItem>
-      <ViewNoticeItem className="noticeContent">내용</ViewNoticeItem>
+      <ViewNoticeItem className="noticeTitle">{title}</ViewNoticeItem>
+      <ViewNoticeItem className="noticeInfo">
+        {writer} / {registeredDate}
+      </ViewNoticeItem>
+      <ViewNoticeItem className="noticeContent">{body}</ViewNoticeItem>
       <ViewNoticeItem className="noticeButton">
         <BasicButton to="/notice">뒤로 가기</BasicButton>
 

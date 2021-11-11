@@ -1,19 +1,20 @@
-import { createAction, handleActions } from 'redux-actions';
-import produce from 'immer';
-import { takeLatest } from 'redux-saga/effects';
+import { createAction, handleActions } from "redux-actions";
+import produce from "immer";
+import { takeLatest } from "redux-saga/effects";
 import createRequestSaga, {
   createRequestActionTypes,
-} from '../lib/createRequestSaga';
-import * as authAPI from '../lib/api/auth';
+} from "../lib/createRequestSaga";
+import * as authAPI from "../lib/api/auth";
 
-const CHANGE_FIELD = 'auth/CHANGE_FIELD';
-const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
+const CHANGE_FIELD = "auth/CHANGE_FIELD";
+const INITIALIZE_FORM = "auth/INITIALIZE_FORM";
+const INITIALIZE_AUTH = "auth/INITIALIZE_AUTH";
 
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] =
-  createRequestActionTypes('auth/REGISTER');
+  createRequestActionTypes("auth/REGISTER");
 
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] =
-  createRequestActionTypes('auth/LOGIN');
+  createRequestActionTypes("auth/LOGIN");
 
 export const changeField = createAction(
   CHANGE_FIELD,
@@ -21,12 +22,14 @@ export const changeField = createAction(
     form, // register , login
     key, // username, password, passwordConfirm
     value, // 실제 바꾸려는 값
-  }),
+  })
 );
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form); // register / login
-export const register = createAction(REGISTER, ({ username, password }) => ({
+export const initializeAuth = createAction(INITIALIZE_AUTH); // register / login
+export const register = createAction(REGISTER, ({ username, password, nickname }) => ({
   username,
   password,
+  nickname,
 }));
 export const login = createAction(
   LOGIN,
@@ -34,7 +37,7 @@ export const login = createAction(
     username,
     password,
     grant_type,
-  }),
+  })
 );
 
 // saga 생성
@@ -47,17 +50,19 @@ export function* authSaga() {
 
 const initialState = {
   register: {
-    username: '',
-    password: '',
-    passwordConfirm: '',
+    username: "",
+    nickname: "",
+    password: "",
+    passwordConfirm: "",
   },
   login: {
-    username: '',
-    password: '',
-    grant_type: '',
+    username: "",
+    password: "",
+    grant_type: "",
   },
   auth: null,
   authError: null,
+  authSuccess: null,
 };
 
 const auth = handleActions(
@@ -71,11 +76,13 @@ const auth = handleActions(
       [form]: initialState[form],
       authError: null, // 폼 전환 시 회원 인증 에러 초기화
     }),
+    [INITIALIZE_AUTH]: (state) => initialState,
     // 회원가입 성공
-    [REGISTER_SUCCESS]: (state, { payload: auth }) => ({
+    [REGISTER_SUCCESS]: (state) => ({
       ...state,
       authError: null,
-      auth,
+      authSuccess: "success",
+      // auth, 굳이 필요 없지 회원가입 완료했다고 데이터 보낼 필요가 없다.
     }),
     // 회원가입 실패
     [REGISTER_FAILURE]: (state, { payload: error }) => ({
@@ -94,7 +101,7 @@ const auth = handleActions(
       authError: error,
     }),
   },
-  initialState,
+  initialState
 );
 
 export default auth;

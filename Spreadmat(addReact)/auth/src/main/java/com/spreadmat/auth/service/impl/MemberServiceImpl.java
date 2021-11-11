@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 public class MemberServiceImpl implements MemberService {
@@ -28,6 +30,12 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public User findOneByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+
+        return userRepository.findById(id);
     }
 
     @Override

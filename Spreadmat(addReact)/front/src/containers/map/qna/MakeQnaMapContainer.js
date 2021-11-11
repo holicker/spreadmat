@@ -5,8 +5,8 @@ import { changeField, initialize } from "../../../modules/write";
 
 const MakeQnaMapContainer = () => {
   const { title, body } = useSelector(({ write }) => ({
-    title: write.qna.title,
-    body: write.qna.body,
+    title: write.title,
+    body: write.body,
   }));
 
   const dispatch = useDispatch();

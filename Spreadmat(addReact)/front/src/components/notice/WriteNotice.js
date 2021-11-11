@@ -41,7 +41,7 @@ const WriteNoticeItem = styled(BasicItem)`
 
 const WriteNotice = ({ title, body, onChangeField }) => {
   const onChangeTitle = (e) => {
-    onChangeField({ form: "notice", key: "title", value: e.target.value });
+    onChangeField({ key: "title", value: e.target.value });
   };
 
   return (
@@ -56,11 +56,7 @@ const WriteNotice = ({ title, body, onChangeField }) => {
       </WriteNoticeItem>
       <WriteNoticeItem className="writeInfo">인포</WriteNoticeItem>
       <WriteNoticeItem className="writeContent">
-        <Editor form="notice" onChangeField={onChangeField} body={body} />
-      </WriteNoticeItem>
-      <WriteNoticeItem className="writeButton">
-        <BasicButton to="/notice">작성/수정</BasicButton>
-        <BasicButton to="/notice">뒤로 가기</BasicButton>
+        <Editor onChangeField={onChangeField} body={body} />
       </WriteNoticeItem>
     </WriteNoticeBlock>
   );

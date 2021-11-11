@@ -5,8 +5,8 @@ import { changeField, initialize } from "../../../modules/write";
 
 const MakeReviewMapContainer = () => {
   const { title, body } = useSelector(({ write }) => ({
-    title: write.review.title,
-    body: write.review.body,
+    title: write.title,
+    body: write.body,
   }));
 
   const dispatch = useDispatch();

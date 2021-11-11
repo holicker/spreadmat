@@ -27,26 +27,33 @@ const ListNoticeItem = styled(BasicItem)`
   }
 `;
 
-const NoticeItem = ({ ...props }) => {
+const NoticeItem = ({ notice }) => {
+  const { id, title, body, registeredDate } = notice;
   return (
     <ListNoticeItem>
-      <LinkButton {...props}>제목1</LinkButton>
-      <p>내용</p>
+      <LinkButton to={`/notice/view/${id}`}>{title}</LinkButton>
+      <p>{body}</p>
+      <p>{registeredDate}</p>
     </ListNoticeItem>
   );
 };
 
-const ListNotice = () => {
+const ListNotice = ({ noticelist, loading, error }) => {
+  if (error) {
+    return <ListNoticeBlock>에러가 발생했습니다.</ListNoticeBlock>;
+  }
   return (
     <ListNoticeBlock>
       <ListNoticeItem className="addbutton">
         <BasicButton to="/notice/write">공지 등록</BasicButton>
       </ListNoticeItem>
-      <NoticeItem to="/notice/view" />
-      <NoticeItem to="/notice/view" />
-      <NoticeItem to="/notice/view" />
-      <NoticeItem to="/notice/view" />
-      <NoticeItem to="/notice/view" />
+      {!loading && noticelist && (
+        <div>
+          {noticelist.content.map((notice) => (
+            <NoticeItem notice={notice} key={notice.id} />
+          ))}
+        </div>
+      )}
     </ListNoticeBlock>
   );
 };

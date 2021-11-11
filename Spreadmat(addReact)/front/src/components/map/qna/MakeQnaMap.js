@@ -1,7 +1,6 @@
 import OpenColor from "open-color";
 import React from "react";
 import styled from "styled-components";
-import BasicButton from "../../common/BasicButton";
 import { BasicDiv } from "../../common/BasicDiv";
 import { BasicItem } from "../../common/BasicItem";
 import Editor from "../../common/Editor";
@@ -42,7 +41,7 @@ const MakeQnaItem = styled(BasicItem)`
 
 const MakeQna = ({ title, body, onChangeField }) => {
   const onChangeTitle = (e) => {
-    onChangeField({ form: "qna", key: "title", value: e.target.value });
+    onChangeField({ key: "title", value: e.target.value });
   };
 
   return (
@@ -57,11 +56,7 @@ const MakeQna = ({ title, body, onChangeField }) => {
       </MakeQnaItem>
       <MakeQnaItem className="writeInfo">인포랑 비밀글 여부</MakeQnaItem>
       <MakeQnaItem className="writeContent">
-        <Editor form="qna" body={body} onChangeField={onChangeField} />
-      </MakeQnaItem>
-      <MakeQnaItem className="writeButton">
-        <BasicButton>작성/수정</BasicButton>
-        <BasicButton>뒤로 가기</BasicButton>
+        <Editor body={body} onChangeField={onChangeField} />
       </MakeQnaItem>
     </MakeQnaBlock>
   );

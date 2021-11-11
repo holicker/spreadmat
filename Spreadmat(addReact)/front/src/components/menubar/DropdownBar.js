@@ -1,5 +1,7 @@
 import OpenColor from "open-color";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import BasicButton from "../common/BasicButton";
 import { BasicLI } from "../common/BasicLI";
 import { BasicUL } from "../common/BasicUL";
 import { LinkButton } from "../common/LinkButton";
@@ -36,14 +38,15 @@ const DropdownButton = styled(BasicLI)`
   background-color: ${OpenColor.blue[1]};
   text-align: center;
 `;
-const DropdownBar = () => {
+const DropdownBar = ({onFindMyVendor}) => { // 여기 전달할 때에는 항상 {}를 해줘야 한다!! json으로 넘어가는 듯?
   return (
     <DropdownBarBlock>
       <DropdownHead>
         MY VENDOR
         <DropdownSubBlock>
           <DropdownButton>
-            <LinkButton to={"/map/vendor/1"}>나의 상점 방문</LinkButton>
+          <BasicButton onClick={onFindMyVendor}>나의 상점 방문</BasicButton>
+
           </DropdownButton>
           <DropdownButton>
             <LinkButton to={"/manage"}>상점 관리</LinkButton>

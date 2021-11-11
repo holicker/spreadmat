@@ -1,5 +1,5 @@
-import { call, put } from 'redux-saga/effects';
-import { startLoading, finishLoading } from '../modules/loading';
+import { call, put } from "redux-saga/effects";
+import { startLoading, finishLoading } from "../modules/loading";
 
 export const createRequestActionTypes = (type) => {
   const SUCCESS = `${type}_SUCCESS`;
@@ -16,14 +16,13 @@ export default function createRequestSaga(type, request) {
     try {
       const response = yield call(request, action.payload);
 
-      console.log(`action.payload : ${action.payload}`);
-      console.log(`response data:${response.data}`);
-      console.log(`response status:${response.status}`);
+      console.log(`action.payload : ${JSON.stringify(action.payload)}`);
       yield put({
         type: SUCCESS,
         payload: response.data,
       });
     } catch (e) {
+      console.log(`error:${e}`);
       yield put({
         type: FAILURE,
         payload: e,

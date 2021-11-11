@@ -5,8 +5,8 @@ import { changeField, initialize } from "../../modules/write";
 
 const WriteNoticeContainer = () => {
   const { title, body } = useSelector(({ write }) => ({
-    title: write.notice.title,
-    body: write.notice.body,
+    title: write.title,
+    body: write.body,
   }));
 
   const dispatch = useDispatch();

@@ -1,4 +1,10 @@
-server.port: 8080
+server.port: 8443
+
+server.ssl:
+  key-store-type: PKCS12
+  key-store: classpath:edge.p12
+  key-store-password: password
+  key-alias: localhost
 
 spring.application.name: gateway
 
@@ -33,6 +39,16 @@ spring.cloud.gateway.routes:
   uri: lb://qna
   predicates:
     - Path=/qna/**
+
+- id: review
+  uri: lb://review
+  predicates:
+    - Path=/review/**
+
+- id: notice
+  uri: lb://notice
+  predicates:
+    - Path=/notice/**
 
 - id: auth
   uri: lb://auth
@@ -84,24 +100,13 @@ spring.cloud.gateway.routes:
   filters:
   - SetPath=/
 
-spring.cloud.gateway.globalcors:
-  cors-configurations:
-    '[/**]':
-      allowedOrigins: "http://localhost"
-      allow-credentials: true
-      allowedHeaders:
-        - x-requested-with
-        - authorization
-        - content-type
-        - credential
-        - X-AUTH-TOKEN
-        - X-CSRF-TOKEN
-      allowedMethods:
-        - POST
-        - GET
-        - PUT
-        - OPTIONS
-        - DELETE
+- id: host_route_200
+  uri: http://httpstat.us
+  predicates:
+    - Host=i.feel.lucky:8080
+    - Path=/headerrouting/**
+  filters:
+    - SetPath=/200
 
 spring.security.oauth2.resourceserver.jwt.jwk-set-uri: http://${app.auth-server}:9999/.well-known/jwks.json
 

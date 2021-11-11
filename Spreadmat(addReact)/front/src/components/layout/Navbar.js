@@ -51,7 +51,7 @@ const NavItem = styled.div`
   border: 1px solid ${OpenColor.black};
 `;
 
-const Navbar = ({ keyword, onChangeKeyword }) => {
+const Navbar = ({ keyword, onChangeKeyword, onFindMyVendor}) => {
   return (
     <NavbarBlock>
       <NavbarWrapper>
@@ -64,7 +64,7 @@ const Navbar = ({ keyword, onChangeKeyword }) => {
         <NavItem className="left">
           <NavItem className="paper"></NavItem>
           <NavItem className="dropdown">
-            <DropdownBar />
+            <DropdownBar onFindMyVendor={onFindMyVendor}/>
           </NavItem>
         </NavItem>
       </NavbarWrapper>

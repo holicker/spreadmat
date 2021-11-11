@@ -2,6 +2,7 @@ import OpenColor from "open-color";
 import { Route, Switch } from "react-router";
 import styled from "styled-components";
 import "./App.css";
+import PrivateRoute from "./components/auth/PrivateRoute";
 import Content from "./components/layout/Content";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
@@ -16,7 +17,8 @@ import MerchandisePage from "./pages/MerchandisePage";
 import NoticePage from "./pages/NoticePage";
 import RegisterPage from "./pages/RegisterPage";
 import SearchPage from "./pages/SearchPage";
-import TestPage from "./pages/TestPage";
+import TestPage from "./pages/ChatPage";
+import MakeVendorPage from "./pages/MakeVendorPage";
 import TransactionPage from "./pages/TransactionPage";
 
 const EntireSettingBlock = styled.div`
@@ -37,7 +39,7 @@ function App() {
         <Content>
           <Switch>
             <Route component={MainPage} path={"/"} exact />
-            <Route component={NoticePage} path={"/notice"} />
+            <PrivateRoute component={NoticePage} path={"/notice"} />
             <Route component={MapPage} path={"/map"} />
             <Route component={SearchPage} path={"/search"} />
             <Route component={ManagePage} path={"/manage"} />
@@ -45,8 +47,8 @@ function App() {
             <Route component={TransactionPage} path={"/transaction"} />
             <Route component={RegisterPage} path={"/register"} exact />
             <Route component={LoginPage} path={"/login"} exact />
-            <Route component={ChatPage} path={"/chat"} />
-            <Route component={TestPage} path={"/test"} />
+            <Route component={MakeVendorPage} path={"/vendor"} />
+            <Route component={ChatPage} path={"/chat/:roomid"} />
           </Switch>
         </Content>
         <Footer />

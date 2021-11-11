@@ -11,7 +11,8 @@ import { check } from "./lib/api/auth";
 import { tempSetUser } from "./modules/user";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import createSagaMiddleware from '@redux-saga/core';
+import createSagaMiddleware from "@redux-saga/core";
+import { tempSetVendor } from "./modules/vendor";
 
 const GlobalStyle = createGlobalStyle`
 	body {
@@ -30,9 +31,27 @@ function loadUser() {
   try {
     console.log("loadUser() start");
     const user = localStorage.getItem("user");
+    const id = localStorage.getItem("id");
     const access_token = localStorage.getItem("access_token");
+    const vendorid = localStorage.getItem("vendorid");
+    const vendordomain = localStorage.getItem("vendordomain");
+    const nickname = localStorage.getItem("nickname");
+
     if (!user) return;
-    store.dispatch(tempSetUser(JSON.parse(user)));
+
+    store.dispatch(
+      tempSetUser({
+        id: JSON.parse(id),
+        user: JSON.parse(user),
+        nickname: JSON.parse(nickname),
+      })
+    ); // json parse는 키 = 객체 를 키 : 객체로 변환해줌
+    store.dispatch(
+      tempSetVendor({
+        vendorid: JSON.parse(vendorid),
+        vendordomain: JSON.parse(vendordomain),
+      })
+    );
     store.dispatch(check({ access_token }));
   } catch (e) {
     console.log("LocalStorage(index) is not working : loadUser()");

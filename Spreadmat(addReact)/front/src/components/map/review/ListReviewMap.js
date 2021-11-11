@@ -50,33 +50,33 @@ const ListReviewComponent = styled(BasicItem)`
   }
 `;
 
-const ReviewItem = () => {
+const ReviewItem = ({review}) => {
+  
+  const { title, body, writer, registeredDate } = review;
   return (
     <ListReviewMapItem>
       <ListReviewComponent className="photo">사진</ListReviewComponent>
-      <ListReviewComponent className="title">리뷰 제목</ListReviewComponent>
-      <ListReviewComponent className="info">별점 등 정보</ListReviewComponent>
-      <ListReviewComponent className="desc">내용</ListReviewComponent>
+      <ListReviewComponent className="title">{title}</ListReviewComponent>
+      <ListReviewComponent className="info">별점 등 정보{registeredDate}</ListReviewComponent>
+      <ListReviewComponent className="desc">{body}</ListReviewComponent>
     </ListReviewMapItem>
   );
 };
 
-const ListReviewMap = ({ match }) => {
-  const { vendorid } = match.params;
+const ListReviewMap = ({ reviewlist, loading, error }) => {
+
+  if (error) {
+    return <ListReviewMapBlock>에러가 발생했습니다.</ListReviewMapBlock>;
+  }
   return (
     <ListReviewMapBlock>
-      {vendorid}의 별점 통계
-      <BasicButton to={match.url + "/write"}>리뷰 작성</BasicButton>
-      <ReviewItem />
-      <ReviewItem />
-      <ReviewItem />
-      <ReviewItem />
-      <ReviewItem />
-      <ReviewItem />
-      <ReviewItem />
-      <ReviewItem />
-      <ReviewItem />
-      <ReviewItem />
+        {!loading && reviewlist && (
+          <div>
+            {reviewlist.content.map((review) => (
+              <ReviewItem review={review} key={review.id} />
+            ))}
+          </div>
+        )}
     </ListReviewMapBlock>
   );
 };

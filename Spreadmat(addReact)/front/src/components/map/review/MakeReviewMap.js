@@ -42,7 +42,7 @@ const MakeReviewMapItem = styled(BasicItem)`
 
 const MakeReviewMap = ({ title, body, onChangeField }) => {
   const onChangeTitle = (e) => {
-    onChangeField({ form: "review", key: "title", value: e.target.value });
+    onChangeField({ key: "title", value: e.target.value });
   };
 
   return (
@@ -59,11 +59,7 @@ const MakeReviewMap = ({ title, body, onChangeField }) => {
         인포랑 사진 업로드, 별점
       </MakeReviewMapItem>
       <MakeReviewMapItem className="writeContent">
-        <Editor form="review" onChangeField={onChangeField} body={body} />
-      </MakeReviewMapItem>
-      <MakeReviewMapItem className="writeButton">
-        <BasicButton>작성/수정</BasicButton>
-        <BasicButton>뒤로 가기</BasicButton>
+        <Editor onChangeField={onChangeField} body={body} />
       </MakeReviewMapItem>
     </MakeReviewMapBlock>
   );

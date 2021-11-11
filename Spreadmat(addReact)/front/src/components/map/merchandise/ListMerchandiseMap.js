@@ -15,7 +15,7 @@ const ListMerchandiseMapBlock = styled(BasicDiv)`
 
 const ListMerchandiseMapItem = styled.div`
   margin: 1rem 1rem;
-  height:9rem;
+  height: 9rem;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(6, 1fr);
@@ -28,7 +28,7 @@ const ListMerchandiseComponent = styled(BasicItem)`
     grid-row-start: 1;
     grid-row-end: 7;
   }
-  &.title {
+  &.merchandiseName {
     grid-column-start: 4;
     grid-column-end: 8;
     grid-row-start: 1;
@@ -48,37 +48,56 @@ const ListMerchandiseComponent = styled(BasicItem)`
   }
 `;
 
-const MerchandiseItem = ({ ...props }) => {
-  return (
-    <ListMerchandiseMapItem>
+const MerchandiseItem = ({ merchandise, onClickLink }) => {
+  const {
+    id,
+    merchandiseName,
+    merchandiseDescription,
+    merchandisePrice,
+    registeredDate,
+  } = merchandise;
+  return (// 이렇게 매개변수가 있는 놈은 새롭게 함수를 지정해줘야 하는 듯.    
+    <ListMerchandiseMapItem onClick={() => onClickLink(id)}>    
       <ListMerchandiseComponent className="photo">
-        사진
+        사진{registeredDate}
       </ListMerchandiseComponent>
-      <ListMerchandiseComponent className="title">
-        <LinkButton {...props}>상품 제목1</LinkButton>
+      <ListMerchandiseComponent className="merchandiseName">
+        {merchandiseName}
       </ListMerchandiseComponent>
       <ListMerchandiseComponent className="info">
-        가격 및 정보
+        {merchandisePrice}
       </ListMerchandiseComponent>
-      <ListMerchandiseComponent className="desc">내용</ListMerchandiseComponent>
+      <ListMerchandiseComponent className="desc">
+        {merchandiseDescription}
+      </ListMerchandiseComponent>
     </ListMerchandiseMapItem>
   );
 };
 
-const ListMerchandiseMap = ({ match }) => {
-  const { vendorid } = match.params;
+const ListMerchandiseMap = ({
+  merchandiselist,
+  loading,
+  error,
+  onClickLink,
+}) => {
+  if (error) {
+    return (
+      <ListMerchandiseMapBlock>에러가 발생했습니다.</ListMerchandiseMapBlock>
+    );
+  }
   return (
     <ListMerchandiseMapBlock>
-      {vendorid}의 상품목록
-      <MerchandiseItem to={match.url + "/1"} />
-      <MerchandiseItem to={match.url + "/2"} />
-      <MerchandiseItem to={match.url + "/3"} />
-      <MerchandiseItem to={match.url + "/4"} />
-      <MerchandiseItem to={match.url + "/5"} />
-      <MerchandiseItem to={match.url + "/6"} />
-      <MerchandiseItem to={match.url + "/7"} />
-      <MerchandiseItem to={match.url + "/8"} />
-      <MerchandiseItem to={match.url + "/9"} />
+      {!loading && merchandiselist && (
+        <div>
+          {merchandiselist&&(merchandiselist.map((merchandise) => (
+            <MerchandiseItem
+              merchandise={merchandise}
+              key={merchandise.id}
+              onClickLink={onClickLink}
+            />
+          )))}
+        </div>
+      )}
     </ListMerchandiseMapBlock>
   );
 };

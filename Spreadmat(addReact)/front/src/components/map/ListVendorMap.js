@@ -49,30 +49,35 @@ const ListVendorComponent = styled(BasicItem)`
   }
 `;
 
-const VendorItem = () => {
+const VendorItem = ({ vendor }) => {
   return (
     <ListVendorMapItem>
-      <ListVendorComponent className="photo">벤더 대표 사진</ListVendorComponent>
-      <ListVendorComponent className="title">벤더 이름</ListVendorComponent>
-      <ListVendorComponent className="info">별점, 리뷰 갯수 거래 횟수 등 정보</ListVendorComponent>
-      <ListVendorComponent className="desc">간단한 소개글</ListVendorComponent>
+      <ListVendorComponent className="photo">
+        벤더 대표 사진
+      </ListVendorComponent>
+      <ListVendorComponent className="title">
+        {vendor.vendorName}
+      </ListVendorComponent>
+      <ListVendorComponent className="info">
+        별점, 리뷰 갯수 거래 횟수 등 정보
+      </ListVendorComponent>
+      <ListVendorComponent className="desc">
+        {vendor.vendorInfo}
+      </ListVendorComponent>
     </ListVendorMapItem>
   );
 };
 
-const ListVendorMap = ({ match }) => {
+const ListVendorMap = ({ loading, error, vendorlist, onClickLink }) => {
+  console.log(onClickLink);
+  if (error) {
+    return <ListVendorMapBlock>에러가 발생했습니다.</ListVendorMapBlock>;
+  }
   return (
     <ListVendorMapBlock>
-      <VendorItem />
-      <VendorItem />
-      <VendorItem />
-      <VendorItem />
-      <VendorItem />
-      <VendorItem />
-      <VendorItem />
-      <VendorItem />
-      <VendorItem />
-      <VendorItem />
+      {!loading &&
+        vendorlist &&
+        vendorlist.map((vendor) => <VendorItem vendor={vendor} />)}
     </ListVendorMapBlock>
   );
 };

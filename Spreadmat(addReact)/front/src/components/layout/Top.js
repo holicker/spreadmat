@@ -38,7 +38,7 @@ const TopButton = styled(BasicLI)`
   }
 `;
 
-const Top = ({ history, user, onLogout }) => {
+const Top = ({ history, nickname, onLogout }) => {
   const ToLogin = () => {
     history.push("/login");
   };
@@ -52,9 +52,9 @@ const Top = ({ history, user, onLogout }) => {
       <TopWrapper>
         <BasicDiv></BasicDiv>
         <BasicDiv>
-          {user ? (
+          {nickname ? (
             <TopBar>
-              <TopButton>{user}님이 로그인하셨습니다.</TopButton>
+              <TopButton>{nickname}님이 로그인하셨습니다.</TopButton>
               <TopButton onClick={onLogout}>로그아웃</TopButton>
             </TopBar>
           ) : (

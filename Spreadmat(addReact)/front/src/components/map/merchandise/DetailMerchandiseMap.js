@@ -2,7 +2,6 @@ import OpenColor from "open-color";
 import React from "react";
 import { withRouter } from "react-router";
 import styled from "styled-components";
-import BasicButton from "../../common/BasicButton";
 import { BasicDiv } from "../../common/BasicDiv";
 import { BasicItem } from "../../common/BasicItem";
 
@@ -35,60 +34,53 @@ const DetailMerchandiseMapItem = styled(BasicItem)`
   }
 `;
 
+const DetailMerchandiseMap = ({
+  merchandise,
+  loading,
+  error,
+  actionButtons,
+}) => {
+  if (error) {
+    if (error.response && error.response.status === 404) {
+      return (
+        <DetailMerchandiseMapBlock>
+          존재하지 않는 포스트입니다.
+        </DetailMerchandiseMapBlock>
+      );
+    }
+    return <DetailMerchandiseMapBlock>오류 발생!</DetailMerchandiseMapBlock>;
+  }
 
-const DetailMerchandiseMap = ({ match, history }) => {
-  
-  const BackButtonClick = () => {
-    history.goBack();
-  };
+  if (loading || !merchandise) {
+    return null;
+  }
+
+  console.log(`Detail merchandise : ${JSON.stringify(merchandise)}`);
+
+  const {
+    merchandiseName: title,
+    merchandiseDecription: body,
+    merchandisePrice: price,
+    currentDate: registeredDate,
+  } = merchandise;
+
   return (
     <DetailMerchandiseMapBlock>
       <DetailMerchandiseMapItem className="photo">
         사진
       </DetailMerchandiseMapItem>
       <DetailMerchandiseMapItem className="title">
-        제목
+        {title}
       </DetailMerchandiseMapItem>
       <DetailMerchandiseMapItem className="info">
-        가격 등 정보
+        {price} / {registeredDate}
       </DetailMerchandiseMapItem>
       <DetailMerchandiseMapItem className="desc">
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
-        ddd
-        <br />
+        {body}
       </DetailMerchandiseMapItem>
 
       <DetailMerchandiseMapItem className="button">
-        <BasicButton onClick={() => BackButtonClick()}>뒤로가기</BasicButton>
-        <BasicButton>거래요청</BasicButton>
-        <BasicButton>수정하기</BasicButton>
-        <BasicButton>삭제하기</BasicButton>
-        <BasicButton>물품 숨기기</BasicButton>
+        {/*   {actionButtons} */}
       </DetailMerchandiseMapItem>
     </DetailMerchandiseMapBlock>
   );

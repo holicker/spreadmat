@@ -7,6 +7,8 @@ import { BasicItem } from "../components/common/BasicItem";
 import Responsive from "../components/common/Responsive";
 import ListVendorMap from "../components/map/ListVendorMap";
 import ViewVendorMap from "../components/map/VeiwVendorMap";
+import ListVendorMapContainer from "../containers/map/ListVendorMapContainer";
+import NaverMapAPIContainer from "../containers/map/NaverMapAPIContainer";
 import NaverMapAPI from "../lib/map/NaverMapAPI";
 
 const MapPageBlock = styled(BasicDiv)`
@@ -23,11 +25,11 @@ const MapPageWrapper = styled(Responsive)`
 `;
 
 const MapPageItem = styled(BasicItem)`
-  width: 100%;
   border: 1px solid ${OpenColor.black};
   flex: 1;
 
   &.left {
+    width: 50%;
     flex: 1;
     padding: 20px;
     display: flex;
@@ -43,23 +45,23 @@ const MapPageItem = styled(BasicItem)`
     flex: 1;
   }
   &.right {
+    width: 50%;
     flex: 1;
   }
 `;
 
 const MapPage = ({ match, history }) => {
-  console.log({ match });
   return (
     <MapPageBlock>
       <MapPageWrapper>
         <MapPageItem className="left">
           <MapPageItem className="map">
-            <NaverMapAPI match={match} history={history} />
+            <NaverMapAPIContainer />
           </MapPageItem>
           <MapPageItem className="blank"></MapPageItem>
         </MapPageItem>
         <MapPageItem className="right">
-          <Route component={ListVendorMap} path={match.path} exact />
+          <Route component={ListVendorMapContainer} path={match.path} exact />
           <Route
             component={ViewVendorMap}
             path={match.path + "/vendor/:vendorid"}

@@ -1,8 +1,8 @@
-import OpenColor from 'open-color';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import BasicButton from '../common/BasicButton';
+import OpenColor from "open-color";
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import BasicButton from "../common/BasicButton";
 
 /**
  * 회원가입 또는 로그인 폼을 보여줍니다.
@@ -55,8 +55,8 @@ const BasicButtonWithMarginTop = styled(BasicButton)`
 `;
 
 const textMap = {
-  login: '로그인',
-  register: '회원가입',
+  login: "로그인",
+  register: "회원가입",
 };
 
 /**
@@ -82,6 +82,15 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           onChange={onChange}
           value={form.username}
         />
+        {type === "register" && (
+          <StyledInput
+            autoComplete="nickname"
+            name="nickname"
+            placeholder="닉네임"
+            onChange={onChange}
+            value={form.nickname}
+          />
+        )}
         <StyledInput
           autoComplete="new-password"
           name="password"
@@ -90,7 +99,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           onChange={onChange}
           value={form.password}
         />
-        {type === 'register' && (
+        {type === "register" && (
           <StyledInput
             autoComplete="new-password"
             name="passwordConfirm"
@@ -101,12 +110,12 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           />
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        <BasicButtonWithMarginTop cyan fullWidth style={{ marginTop: '1rem' }}>
+        <BasicButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem" }}>
           {text}
         </BasicButtonWithMarginTop>
       </form>
       <Footer>
-        {type === 'login' ? (
+        {type === "login" ? (
           <Link to="/register">회원가입</Link>
         ) : (
           <Link to="/login">로그인</Link>

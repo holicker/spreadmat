@@ -1,7 +1,9 @@
 import axios from "axios";
 
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.baseURL = "http://localhost:3000";
 const client = axios.create();
-
 /*
   글로벌 설정 예시:
   

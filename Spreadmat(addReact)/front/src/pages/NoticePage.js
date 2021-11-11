@@ -5,10 +5,9 @@ import styled from "styled-components";
 import { BasicDiv } from "../components/common/BasicDiv";
 import { BasicItem } from "../components/common/BasicItem";
 import Responsive from "../components/common/Responsive";
-import ListNotice from "../components/notice/ListNotice";
-import ViewNotice from "../components/notice/ViewNotice";
-import WriteNotice from "../components/notice/WriteNotice";
-import WriteNoticeContainer from "../containers/notice/WriteNoticeContainer";
+import ListNoticePage from "./ListNoticePage";
+import ViewNoticePage from "./ViewNoticePage";
+import WriteNoticePage from "./WriteNoticePage";
 
 const NoticePageBlock = styled(BasicDiv)`
   margin: 0px 0px;
@@ -51,12 +50,12 @@ const NoticePage = ({ match }) => {
           <NoticePageItem className="title">공지사항</NoticePageItem>
         </NoticePageItem>
         <NoticePageItem className="content">
-          <Route component={ListNotice} path={match.path} exact />
-          <Route component={ViewNotice} path={match.path + "/view"} />
+          <Route component={ListNoticePage} path={match.path} exact />
           <Route
-            component={WriteNoticeContainer}
-            path={match.path + "/write"}
+            component={ViewNoticePage}
+            path={match.path + "/view/:noticeid"}
           />
+          <Route component={WriteNoticePage} path={match.path + "/write"} />
         </NoticePageItem>
       </NoticePageWrapper>
     </NoticePageBlock>

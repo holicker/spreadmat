@@ -5,8 +5,10 @@ import styled from "styled-components";
 import BasicButton from "../components/common/BasicButton";
 import { BasicDiv } from "../components/common/BasicDiv";
 import { BasicItem } from "../components/common/BasicItem";
-import RegisterMerchandise from "../components/merchandise/RegisterMerchandise";
 import VeiwMerchandise from "../components/merchandise/ViewMerchandise";
+import ListMerchandiseContainer from "../containers/merchandise/ListMerchandiseContainer";
+import RegisterMerchandisePage from "./RegisterMerchandisePage";
+import ViewMerchandisePage from "./ViewMerchandisePage";
 const MerchandisePageBlock = styled(BasicDiv)`
   background-color: ${OpenColor.gray[2]};
   display: flex;
@@ -19,7 +21,6 @@ const MerchandisePageBlock = styled(BasicDiv)`
 let displayNone = true;
 
 const MerchandisePageItem = styled(BasicItem)`
-
   border: 1px solid ${OpenColor.black};
 
   &.left {
@@ -30,7 +31,7 @@ const MerchandisePageItem = styled(BasicItem)`
   }
 
   &.right {
-    display:flex;
+    display: flex;
     flex-direction: column;
     flex: 2;
   }
@@ -62,22 +63,17 @@ const MerchandisePage = ({ match, history }) => {
   return (
     <MerchandisePageBlock>
       <MerchandisePageItem className="left">
-        <MerchandiseItem onClick={() => GoView("1")} />
-        <MerchandiseItem onClick={() => GoView("2")} />
-        <MerchandiseItem onClick={() => GoView("3")} />
-        <MerchandiseItem onClick={() => GoView("4")} />
-        <MerchandiseItem onClick={() => GoView("5")} />
-        <MerchandiseItem onClick={() => GoView("6")} />
-        <MerchandiseItem onClick={() => GoView("7")} />
-        <MerchandiseItem onClick={() => GoView("8")} />
-        <MerchandiseItem onClick={() => GoView("9")} />
+        <ListMerchandiseContainer />
       </MerchandisePageItem>
       <MerchandisePageItem className="right">
         <Route
-          component={VeiwMerchandise}
-          path={match.url + "/view/:merchandiseId"}
+          component={ViewMerchandisePage}
+          path={match.url + "/view/:merchandiseid"}
         />
-        <Route component={RegisterMerchandise} path={match.url + "/register"} />
+        <Route
+          component={RegisterMerchandisePage}
+          path={match.url + "/register"}
+        />
       </MerchandisePageItem>
 
       <MerchandisePageItem className="button" displayNone={displayNone}>
